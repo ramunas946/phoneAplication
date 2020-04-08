@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Restorant order</string>
+    <string name="name">Register</string>
+    <string name="name_first">WINNER WINNER CHICKEN DINNER</string>
+    <string name="name_Register">Register</string>
+    <string name="name_Login">Login</string>
+    <string name="login_Username">Username:</string>
+    <string name="login_Password">Password:</string>
+    <string name="login_Email">Email:</string>
+    <string name="Box_Remember">Remember me</string>
+    <string name="login_Login">Login</string>
+    <string name="login_Register">Register</string>
+
+
+</resources>
