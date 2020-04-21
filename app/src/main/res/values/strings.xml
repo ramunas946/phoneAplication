@@ -10,6 +10,8 @@
     <string name="Box_Remember">Remember me</string>
     <string name="login_Login">Login</string>
     <string name="login_Register">Register</string>
-
+    <string name="login_faill_username">a-Z 3 to"\n" 20 username</string>
+    <string name="login_faill_password">a-Z 0-9 (.!@_)"\n" 5 to 20 password</string>
+    <string name="login_faill_email">a-Z 0-9 (.!@_)"\n" 10 to 50 email</string>
 
 </resources>

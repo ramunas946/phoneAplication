@@ -20,6 +20,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         button.setOnClickListener(this);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
+
     }
 
     @Override
@@ -36,4 +37,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
+
 }
