@@ -17,12 +17,19 @@
     <string name="Box_Salad">Salad</string>
     <string name="radio_Yes">Yes</string>
     <string name="radio_No">No</string>
-    <string name="Box_CREATE">CREATE</string>
-    <string name="country_prompt">Card</string>
+    <string name="Login_CREATE">CREATE</string>
     <string name="login_Login">Login</string>
     <string name="login_Register">Register</string>
     <string name="login_faill_username">a-Z 3 to"\n" 20 username</string>
     <string name="login_faill_password">a-Z 0-9 (.!@_)"\n" 5 to 20 password</string>
     <string name="login_faill_email">a-Z 0-9 (.!@_)"\n" 10 to 50 email</string>
 
+
+    <string name="spinner_card">Card</string>
+    <string-array name="Cards_array">
+        <item>card</item>
+        <item>card1</item>
+        <item>card2</item>
+        <item>card3</item>
+    </string-array>
 </resources>
