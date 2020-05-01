@@ -31,7 +31,7 @@
         android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/username_text_input"
+        android:id="@+id/username2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="@string/login_Username"
@@ -47,7 +47,7 @@
         android:textColor="@color/colorMaintext" />
 
     <TextView
-        android:id="@+id/password_text_input"
+        android:id="@+id/password2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="@string/login_Password"

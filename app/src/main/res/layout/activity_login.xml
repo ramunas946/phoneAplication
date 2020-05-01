@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/name_Register"
         android:textAlignment="center"
@@ -20,34 +20,67 @@
         android:textSize="30sp"
         android:textStyle="normal|bold" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/DinnerType"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="@string/login_Email"
+        android:text="@string/login_DinnerType"
+        android:textColor="@color/colorMaintext"
+        android:textSize="25sp" />
+    <CheckBox
+        android:id="@+id/Soup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/Box_Soup" />
+    <CheckBox
+        android:id="@+id/Main"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/Box_Main" />
+    <CheckBox
+        android:id="@+id/Salad"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/Box_Salad" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/login_Delivery"
         android:textColor="@color/colorMaintext"
         android:textSize="25sp" />
 
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="text"
-        android:textColor="@color/colorMaintext" />
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_Yes"/>
+
+        <Space
+            android:layout_width="150dp"
+            android:layout_height="30dp" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_No"/>
+
+
+    </RadioGroup>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="@string/login_Password"
+        android:text="@string/login_price"
         android:textColor="@color/colorMaintext"
         android:textSize="25sp" />
 
@@ -57,14 +90,20 @@
         android:inputType="textPassword"
         android:textColor="@color/colorMaintext" />
 
-
-    <Space
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="40dp"
+        android:text="@string/login_Payment"
+        android:textColor="@color/colorMaintext"
+        android:textSize="25sp" />
 
-    <Space
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="40dp"
+
+        android:prompt="@string/country_prompt"
+        android:text="asdasd"/>
 
     <TableRow
         android:layout_width="fill_parent"
