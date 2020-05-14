@@ -1,78 +1,117 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+
 
 public class Login extends AppCompatActivity {
-
+    private static final String INSERT_URL ="http://ramunas946.byethost31.com/get_data.php";
     CheckBox Soup, Main, Salad;
-    RadioButton radioMale, radioFemale;
+    RadioGroup radioSex;
     EditText Price;
     Spinner spinner;
     Button Create;
-
+    String dinner_type, delivery, price1, payment1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final CheckBox Soup = findViewById(R.id.Soup);
-        final CheckBox Main = findViewById(R.id.Main);
-        final CheckBox Salad = findViewById(R.id.Salad);
-
-        final RadioButton radioMale = findViewById(R.id.radioMale);
-        final RadioButton radioFemale = findViewById(R.id.radioFemale);
-
+        final CheckBox SoupCB = findViewById(R.id.Soup);
+        final CheckBox MainCB = findViewById(R.id.Main);
+        final CheckBox SaladCB = findViewById(R.id.Salad);
+        final RadioGroup radioSex = findViewById(R.id.radioSex);
         final EditText Price = findViewById(R.id.Price);
-
         final Spinner spinner = findViewById(R.id.spinner);
-
         final Button Create = findViewById(R.id.Create);
 
 
-
         Create.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                String result = "Dinner Type:";
-                if(Soup.isChecked()){
-                    result += " Soup ";
+                String dinnerTypes = " ";
+                if (SoupCB.isChecked()) {
+                    dinnerTypes = dinnerTypes + SoupCB.getText().toString() + " ";
                 }
-                if(Salad.isChecked()){
-                    result += " Salad ";
+                if (MainCB.isChecked()) {
+                    dinnerTypes = dinnerTypes + MainCB.getText().toString() + " ";
                 }
-                if(Main.isChecked()){
-                    result += " Main ";
+                if (SaladCB.isChecked()) {
+                    dinnerTypes = dinnerTypes + SaladCB.getText().toString() + " ";
                 }
-                String select = "\nDelivery type:";
-                if(radioMale.isChecked()){
-                    select += "Yes";
+                int selectedDeliveryType = radioSex.getCheckedRadioButtonId();
+                RadioButton deliveryType = findViewById(selectedDeliveryType);
+                String selectedDeliveryTypeBtnName = deliveryType.getText().toString();
+
+                double price = Double.parseDouble(Price.getText().toString());
+                String payment = String.valueOf(spinner.getSelectedItem());
+                Dinner dinner = new Dinner(dinnerTypes, selectedDeliveryTypeBtnName, price, payment);
+                    insertToDB(dinner);
+//                        "dinner type:" + dinner.getDinnerType() + "\n" +
+//                                "Delivery type:" + dinner.getDelivery() + "\n" +
+//                                "Price:" + dinner.getPrice() + "\n" +
+//                                "Payment:" + dinner.getPayment() + "\n",
+//                        Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            public void insertToDB(Dinner dinner) {
+                class NewEntry extends AsyncTask<String, Void,String> {
+
+                    ProgressDialog loading;
+                    DB db =new DB();
+
+                    @Override
+                    protected  void onPreExecute(){
+                        super.onPreExecute();
+                        loading = ProgressDialog.show(Login.this,
+                                getResources().getString(R.string.new_entry_database_info),
+                        null, true, true);
+                    }
+
+                    @Override
+                    protected String doInBackground(String... strings){
+                        HashMap<String, String> pietus =new HashMap<String, String>();
+                        pietus.put("dinner_type", strings[0]);
+                        pietus.put("delivery", strings[1]);
+                        pietus.put("price", strings[2]);
+                        pietus.put("payment", strings[3]);
+                        pietus.put("action", "insert");
+                        String result = db.sendPostRequest(INSERT_URL, pietus);
+                        return result;
+                    }
+                    @Override
+                    protected void onPostExecute(String s){
+                        super.onPostExecute(s);
+                        Toast.makeText(Login.this,s,Toast.LENGTH_SHORT).show();
+                        Intent eitiIpaieskosLanga = new Intent(Login.this,SearchActivity.class);
+                        startActivity(eitiIpaieskosLanga);
+
+                    }
                 }
-                if(radioFemale.isChecked()){
-                    select += "No";
-                }
-                String price = "\nPrice:";
-                if (!Price.getText().toString().isEmpty()) {
-                    int price1 = Integer.parseInt(Price.getText().toString());
-                    price += price1;
-                }
-                String Card = "\nPayment: ";
-                if(!spinner.isSelected()){
-                    String card = spinner.getSelectedItem().toString();
-                    Card += card;
-                }
-                Toast.makeText(getApplicationContext(), result + select + price + Card, Toast.LENGTH_SHORT).show();
-                }
+                NewEntry newEntry = new NewEntry();
+                newEntry.execute(
+                        dinner.getDinnerType(),
+                        dinner.getDelivery(),
+                        Double.toString(dinner.getPrice()),
+                        dinner.getPayment()
+                );
+            }
         });
     }
 }

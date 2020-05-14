@@ -23,6 +23,7 @@
     <string name="login_faill_username">a-Z 3 to"\n" 20 username</string>
     <string name="login_faill_password">a-Z 0-9 (.!@_)"\n" 5 to 20 password</string>
     <string name="login_faill_email">a-Z 0-9 (.!@_)"\n" 10 to 50 email</string>
+    <string name="new_entry_database_info">palaukite sunciama</string>
 
 
     <string name="spinner_card">Card</string>
