@@ -61,16 +61,9 @@ public class Login extends AppCompatActivity {
                 String payment = String.valueOf(spinner.getSelectedItem());
                 Dinner dinner = new Dinner(dinnerTypes, selectedDeliveryTypeBtnName, price, payment);
                     insertToDB(dinner);
-//                        "dinner type:" + dinner.getDinnerType() + "\n" +
-//                                "Delivery type:" + dinner.getDelivery() + "\n" +
-//                                "Price:" + dinner.getPrice() + "\n" +
-//                                "Payment:" + dinner.getPayment() + "\n",
-//                        Toast.LENGTH_SHORT).show();
-
-
             }
 
-            public void insertToDB(Dinner dinner) {
+            private void insertToDB(Dinner dinner) {
                 class NewEntry extends AsyncTask<String, Void,String> {
 
                     ProgressDialog loading;
