@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity{
-
+    private static final String INSERT_URL ="https://ramunas946database.000webhostapp.com/index.php";
     EditText username,password,email;
     Button registerbtn,loginbtn,mainbutton;
     @Override
@@ -31,30 +34,63 @@ public class Register extends AppCompatActivity{
 
 
         register.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View focusView) {
-                boolean cancel = false;
-                focusView = null;
+            public void onClick(View view) {
                 if (!username_crediantials(username.getText().toString())) {
                     username.setError(getString(R.string.login_faill_username));
-                    cancel = true;
                 }
-
                 if (!password_crediantials(password.getText().toString())) {
                     password.setError(getString(R.string.login_faill_password));
-                    cancel = true;
                 }
                 if (!email_crediantials(email.getText().toString())) {
                     email.setError(getString(R.string.login_faill_email));
-                    cancel = true;
                 }
-                if (cancel) {
-
-                } else {
-                    Toast.makeText(Register.this, username.getText().toString() + "\n" + password.getText().toString() + "\n" + email.getText().toString(),
-                            Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Register.this, MainActivity.class));
-                }
+                String loginusername = (username.getText().toString());
+                String loginpassword = (password.getText().toString());
+                String loginemail = (email.getText().toString());
+                RegisterLogin register = new RegisterLogin(loginusername, loginpassword, loginemail);
+                Toast.makeText(Register.this,loginusername +"\n"+ loginpassword +"\n"+ loginemail,Toast.LENGTH_SHORT).show();
+                insertToDB(register);
             }
+                private void insertToDB(RegisterLogin register) {
+                    class NewEntry extends AsyncTask<String, Void,String> {
+
+                        ProgressDialog loading;
+                        DB db =new DB();
+
+                        @Override
+                        protected  void onPreExecute(){
+                            super.onPreExecute();
+                            loading = ProgressDialog.show(Register.this,
+                                    getResources().getString(R.string.new_entry_database_info),
+                                    null, true, true);
+                        }
+
+                        @Override
+                        protected String doInBackground(String... strings){
+                            HashMap<String, String> pietus =new HashMap<String, String>();
+                            pietus.put("username", strings[0]);
+                            pietus.put("password", strings[1]);
+                            pietus.put("email", strings[2]);
+                            pietus.put("action", "Register");
+                            String result = db.sendPostRequest(INSERT_URL, pietus);
+                            return result;
+                        }
+                        @Override
+                        protected void onPostExecute(String s){
+                            super.onPostExecute(s);
+                            Toast.makeText(Register.this,s,Toast.LENGTH_SHORT).show();
+                            Intent eitiILoginlanga = new Intent(Register.this,MainActivity.class);
+                            startActivity(eitiILoginlanga);
+
+                        }
+                    }
+        NewEntry newEntry = new NewEntry();
+        newEntry.execute(
+                register.getUsername(),
+                register.getPassword(),
+                register.getEmail()
+        );
+                }
         });
         main.setOnClickListener(new View.OnClickListener() {
             public void onClick(View focusView) {
@@ -89,5 +125,7 @@ public class Register extends AppCompatActivity{
         Matcher matcher = pattern.matcher(crediantails);
         return matcher.matches();
     }
+
+
 
 }

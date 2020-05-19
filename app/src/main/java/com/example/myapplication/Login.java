@@ -19,13 +19,12 @@ import java.util.HashMap;
 
 
 public class Login extends AppCompatActivity {
-    private static final String INSERT_URL ="http://ramunas946.byethost31.com/get_data.php";
+    private static final String INSERT_URL ="https://ramunas946database.000webhostapp.com/index.php";
     CheckBox Soup, Main, Salad;
     RadioGroup radioSex;
     EditText Price;
     Spinner spinner;
     Button Create;
-    String dinner_type, delivery, price1, payment1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class Login extends AppCompatActivity {
                         pietus.put("delivery", strings[1]);
                         pietus.put("price", strings[2]);
                         pietus.put("payment", strings[3]);
-                        pietus.put("action", "insert");
+                        pietus.put("action", "duotiPyzdi");
                         String result = db.sendPostRequest(INSERT_URL, pietus);
                         return result;
                     }

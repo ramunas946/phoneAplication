@@ -25,8 +25,8 @@ public class DB {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
-            conn.setRequestMethod("Post");
-            conn.setRequestProperty("Cookie", "__test=f524b5e9ec99d79045161264a8cceb21; Expires=Friday, January 1, 2038 at 2:55:55 AM; path=/");
+//            conn.setRequestMethod("Post");
+//            conn.setRequestProperty("Cookie", "__test=f524b5e9ec99d79045161264a8cceb21; Expires=Friday, January 1, 2038 at 2:55:55 AM; path=/");
             conn.setDoInput(true);
             conn.setDoOutput(true);
 

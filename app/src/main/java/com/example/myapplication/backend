@@ -1,0 +1,77 @@
+<?php
+header('Content-Type: application/json');
+//Define your host here.
+$HostName = "localhost";
+//Define your database username here.
+$HostUser = "id13751714_ramunas946";
+//Define your database password here.
+$HostPass = "dCyqNfeM8m\Eg9Oj";
+//Define your database name here.
+$DatabaseName = "id13751714_mydata";
+$conn = new mysqli ($HostName,$HostUser,$HostPass,$DatabaseName);
+
+if($conn ->connect_error){
+    die("connection failed: ".$conn ->connect_error);
+}
+ const SUCCESS = 1;
+ const FAILED = 0;
+
+
+$response = [
+    'status' => FAILED,
+    'message' => 'No action',
+    'data' => []
+];
+
+
+$veiksmas = !empty($_REQUEST['action']) ? $_REQUEST['action'] : '';
+
+switch ($veiksmas){
+    case 'gautiPyzdi':
+        // ką turi padaryti ir ką turi gražinti....
+        $sql = "SELECT * FROM myData";
+        $result = $conn->query($sql);
+        $data = $result -> fetch_array(MYSQLI_ASSOC);
+        $response['data'] = $data;
+        break;
+    case 'duotiPyzdi':
+        $dinner_type = $_POST['dinner_type'];
+        $delivery = $_POST['delivery'];
+        $price = (int)$_POST['price'];
+        $payment = $_POST['payment'];
+
+
+        $sql = "INSERT INTO dinner (dinner_type,delivery,price,payment) VALUES ('$dinner_type','$delivery',$price,'$payment')";
+        if($conn->query($sql)=== TRUE){
+            $response['message'] = [
+            $dinner_type = $_POST['dinner_type'],
+            $delivery = $_POST['delivery'],
+            $price = (int)$_POST['price'],
+            $payment = $_POST['payment'],
+        ];
+        } else {
+            $response['message'] = "Error creating new entry". $conn ->error;
+        }
+        break;
+    case 'Register':
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+
+
+        $sql = "INSERT INTO Register (username,password,email) VALUES ('$username','$password','$email')";
+        if($conn->query($sql)=== TRUE){
+            $response['message'] = [
+                $username = $_POST['username'],
+                $password = $_POST['password'],
+                $email = $_POST['email'],
+            ];
+        } else {
+            $response['message'] = "Error creating new entry". $conn ->error;
+        }
+        break;
+}
+
+echo json_encode($response);
+$conn->close();
+exit;
